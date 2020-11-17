@@ -1,0 +1,13 @@
+.repo-table-container {
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-gap: 1rem;
+}
+
+.repo-card-container {
+    border-left: 1px;
+    border-left-style: solid;
+    border-left-color: black;
+    padding-left: 10px
+}

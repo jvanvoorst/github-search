@@ -1,35 +1,26 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 
 import { AppContext } from '../../store/context';
+import SearchBar from '../../components/search-bar/searchBar';
+import * as APIService from '../../services/api.service';
+import RepoTable from '../../components/repo-table/repoTable';
 
 export default function SearchContainer() {
     const { state, dispatch } = useContext(AppContext);
 
-    useEffect(() => {
-        dispatch({ type: 'set-repos', payload: repos});
-        console.log('state', state);
-
-    }, [])
+    const handleSearch = async (searchTerm: string, sort: string, language: string) => {
+        try {
+            const res = await APIService.search(searchTerm, sort, language);
+            dispatch({ type: 'set-repos', payload: res.data.items });
+        } catch (error) {
+            console.error('There was an arror making search request', error);
+        }
+    };
 
     return (
-        <div>Search</div>
-    )
+        <>
+            <SearchBar handleSearch={handleSearch} />
+            <RepoTable repos={state.repos} />
+        </>
+    );
 }
-
-const repos = [
-    {
-        id:1
-    },
-    {
-        id:2
-    },
-    {
-        id:3
-    },
-    {
-        id:4
-    },
-    {
-        id:5
-    }
-]

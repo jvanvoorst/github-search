@@ -1,9 +1,10 @@
 import React from 'react';
-import { RouteComponentProps } from 'react-router';
+// import { RouteComponentProps } from 'react-router';
+import { RepoType } from '../../store/types';
 
-type DetailsContainerProps = RouteComponentProps;
+// type DetailsContainerProps = RouteComponentProps;
 
-const DetailsContainer = (props: DetailsContainerProps) => {
+const DetailsContainer = ({ repo }: { repo: RepoType}) => {
     return <div>Details</div>;
 }
 
