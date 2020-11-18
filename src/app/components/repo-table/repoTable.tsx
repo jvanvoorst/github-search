@@ -2,10 +2,12 @@ import React, { useContext } from 'react';
 import { LinearProgress } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
+import { formatNumber, formatDescription } from '../../services/util.service';
 import { RepoType } from '../../store/types';
+import { AppContext } from '../../store/context';
 
 import './repoTable.css';
-import { AppContext } from '../../store/context';
+
 
 export default function RepoTable({ repos }: { repos: Array<RepoType> }) {
     const { state } = useContext(AppContext);
@@ -25,8 +27,10 @@ export default function RepoTable({ repos }: { repos: Array<RepoType> }) {
 const RepoCard = ({ repo }: { repo: RepoType }) => (
     <div className={'repo-card-container'}>
         <Link to={`/details/${repo.id}`}>{repo.full_name}</Link>
-        <div>{repo.description}</div>
-        <div>{repo.language}</div>
-        <div>{repo.stargazers_count}</div>
+        <p className={'description'}>{formatDescription(repo.description)}</p>
+        <div className={'language'}>
+            <p>{repo.language}</p>
+        </div>
+        <p>{formatNumber(repo.stargazers_count)} stars</p>
     </div>
 );

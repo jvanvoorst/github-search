@@ -11,8 +11,21 @@ export const repoReducer = (repos: RepoType[], action: ActionType) => {
 
 export const searchReducer = (search: SearchType, action: ActionType) => {
     switch (action.type) {
-        case 'set-search':
-            return action.payload
+        case 'set-searchTerm':
+            return {
+                ...search,
+                term: action.payload
+            }
+        case 'set-sort':
+            return {
+                ...search,
+                sort: action.payload
+            }
+        case 'set-language':
+            return {
+                ...search,
+                language: action.payload
+            }
         default:
             return search;
     }

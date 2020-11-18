@@ -11,3 +11,6 @@
     flex-direction: column;
 }
 
+.search-button-container {
+    padding-top: 25px;
+}

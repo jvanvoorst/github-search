@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { BrowserRouter as Router, Switch, Route, useParams } from 'react-router-dom';
 
-import SearchContainer from './app/containers/search/search.container';
-import DetailsContainer from './app/containers/details/details.container';
-import Header from './app/components/header/header';
-import { AppContext } from './app/store/context';
+import SearchContainer from './containers/search/search.container';
+import DetailsContainer from './containers/details/details.container';
+import Header from './components/header/header';
+import { AppContext } from './store/context';
 
 export default function App() {
     return (
@@ -25,7 +25,7 @@ export default function App() {
 
 function Details() {
     const { state } = useContext(AppContext);
-    const { id } = useParams();
+    const { id } = useParams<{ id: string | undefined }>();
     const repo = state.repos.find((i) => Number(i.id) === Number(id))
     return <DetailsContainer repo={repo}/>
 }

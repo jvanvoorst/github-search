@@ -8,10 +8,10 @@ import RepoTable from '../../components/repo-table/repoTable';
 export default function SearchContainer() {
     const { state, dispatch } = useContext(AppContext);
 
-    const handleSearch = async (searchTerm: string, sort: string, language: string) => {
+    const handleSearch = async () => {
         dispatch({ type: 'set-loading', payload: true});
         try {
-            const res = await APIService.search(searchTerm, sort, language);
+            const res = await APIService.search(state.search.term, state.search.sort, state.search.language);
             dispatch({ type: 'set-repos', payload: res.data.items });
             dispatch({ type: 'set-loading', payload: false });
         } catch (error) {
@@ -22,7 +22,7 @@ export default function SearchContainer() {
 
     return (
         <>
-            <SearchBar handleSearch={handleSearch} />
+            <SearchBar handleSearch={handleSearch} loading={state.loading} />
             <RepoTable repos={state.repos} />
         </>
     );

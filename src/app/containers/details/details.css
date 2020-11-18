@@ -1,0 +1,30 @@
+.details-container {
+    padding: 2rem;
+}
+
+.back-link {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.details-outer {
+    display: flex;
+    justify-content: center;
+}
+
+.details-inner {
+    width: 80%;
+}
+
+.title-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.owner-repo {
+    padding-left: 20px;
+}
+
+.details-body {
+    padding-top: 20px
+}

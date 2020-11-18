@@ -1,19 +1,14 @@
-import React, { useState } from 'react';
-import { InputLabel, MenuItem, Select, TextField } from '@material-ui/core';
+import React, { useState, useContext } from 'react';
+import { Button, InputLabel, MenuItem, Select, TextField } from '@material-ui/core';
 
-import { languages, LanguagesType } from '../../data/languages';
-import { sorts, SortsType } from '../../data/sorts';
+import { languages } from '../../data/languages';
+import { sorts } from '../../data/sorts';
+import { AppContext } from '../../store/context';
 
 import './searchBar.css';
 
-export default function SearchBar({
-    handleSearch,
-}: {
-    handleSearch: (searchTerm: string, sort: SortsType, language: LanguagesType) => void;
-}) {
-    const [searchTerm, setSearchTerm] = useState('');
-    const [sort, setSort] = useState(sorts.BEST_MATCH);
-    const [language, setLanguage] = useState(languages.ALL);
+export default function SearchBar({ handleSearch, loading }: { handleSearch: () => void, loading: boolean }) {
+    const { state, dispatch } = useContext(AppContext);
     const [error, setError] = useState('');
 
     const errorText = 'must be at least 3 characters';
@@ -22,21 +17,11 @@ export default function SearchBar({
         if (key === 'Enter') search();
     };
 
-    const onChangeLanguage = (language: any) => {
-        setLanguage(language);
-        search();
-    };
-
-    const onChangeSort = (sort: any) => {
-        setSort(sort);
-        search();
-    };
-
     const search = () => {
-        if (searchTerm.length < 3) return setError(errorText);
+        if (state.search.term.length < 3) return setError(errorText);
 
         setError('');
-        handleSearch(searchTerm, sort, language);
+        handleSearch();
     };
 
     return (
@@ -45,40 +30,50 @@ export default function SearchBar({
                 <InputLabel id={'search-label'}>Search</InputLabel>
                 <TextField
                     type="string"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
+                    value={state.search.term}
+                    onChange={(e) => dispatch({ type: 'set-searchTerm', payload: e.target.value })}
                     onKeyPress={(e) => onKeyPress(e.key)}
                     autoFocus
                     error={!!error}
                     helperText={error}
                     classes={{ root: 'text-field' }}
+                    disabled={state.loading}
                 />
             </div>
             <div className={'input-container'}>
                 <InputLabel id={'language-label'}>Language</InputLabel>
                 <Select
-                    value={language}
+                    value={state.search.language}
                     id={'languageSelect'}
                     labelId={'language-label'}
-                    onChange={(e) => onChangeLanguage(e.target.value)}
+                    onChange={(e) => dispatch({ type: 'set-language', payload: e.target.value })}
+                    disabled={state.loading}
                 >
                     {Object.values(languages).map((l) => (
-                        <MenuItem key={l} value={l}>{l}</MenuItem>
+                        <MenuItem key={l} value={l}>
+                            {l}
+                        </MenuItem>
                     ))}
                 </Select>
             </div>
             <div className={'input-container'}>
                 <InputLabel id={'sort-label'}>Sort</InputLabel>
                 <Select
-                    value={sort}
+                    value={state.search.sort}
                     id={'sortSelect'}
                     labelId={'sort-label'}
-                    onChange={(e) => onChangeSort(e.target.value)}
+                    onChange={(e) => dispatch({ type: 'set-sort', payload: e.target.value })}
+                    disabled={state.loading}
                 >
                     {Object.values(sorts).map((s) => (
-                        <MenuItem key={s} value={s}>{s}</MenuItem>
+                        <MenuItem key={s} value={s}>
+                            {s}
+                        </MenuItem>
                     ))}
                 </Select>
+            </div>
+            <div className={'search-button-container'}>
+                <Button disabled={state.search.term.length < 3 || loading} color={'primary'} onClick={() => search()}>Search</Button>
             </div>
             <div></div>
         </div>

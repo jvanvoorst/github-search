@@ -8,6 +8,12 @@ export type RepoType = {
     description: string;
     stargazers_count: number;
     language: string;
+    owner: { avatar_url: string; login: string };
+    name: string;
+    html_url: string;
+    updated_at: string;
+    open_issues: number;
+    forks_count: number;
 };
 
 export type SearchType = {
@@ -33,8 +39,16 @@ export type ActionType =
           payload: {};
       }
     | {
-          type: 'set-search';
+          type: 'set-searchTerm';
           payload: {};
+      }
+    | {
+          type: 'set-sort';
+          payload: SortsType;
+      }
+    | {
+          type: 'set-language';
+          payload: LanguagesType;
       }
     | {
           type: 'set-loading';
