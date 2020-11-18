@@ -18,4 +18,10 @@ export const searchReducer = (search: SearchType, action: ActionType) => {
     }
 }
 
+export const loadingReducer = (loading: boolean, action: ActionType) => {
+    if (action.type === 'set-loading') return action.payload
+
+    return loading;
+}
+
 

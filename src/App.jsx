@@ -16,9 +16,6 @@ export default function App() {
                     <Route
                         path="/details/:id"
                         children={<Details />}
-                        // render={() => (
-                        //     <DetailsContainer repo={state.repos.find((i) => (i.id = id))} />
-                        // )}
                     />
                 </Switch>
             </Router>
@@ -29,8 +26,6 @@ export default function App() {
 function Details() {
     const { state } = useContext(AppContext);
     const { id } = useParams();
-    console.log('id', id);
-    const repo = state.repos.find((i) => i.id === id)
-    console.log('repos', state.repos)
+    const repo = state.repos.find((i) => Number(i.id) === Number(id))
     return <DetailsContainer repo={repo}/>
 }

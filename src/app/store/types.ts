@@ -1,6 +1,6 @@
 import { Dispatch } from 'react';
-import { sorts, _sorts } from '../data/sorts';
-import { languages } from '../data/languages';
+import { SortsType } from '../data/sorts';
+import { LanguagesType } from '../data/languages';
 
 export type RepoType = {
     id: number;
@@ -10,17 +10,16 @@ export type RepoType = {
     language: string;
 };
 
-// type SortType = keyof typeof sorts;
-type LanguageTypes = keyof typeof languages;
 export type SearchType = {
-    sort: _sorts;
-    language: LanguageTypes;
+    sort: SortsType;
+    language: LanguagesType;
     term: string;
 };
 
 export type StateType = {
     repos: RepoType[];
     search: SearchType;
+    loading: boolean;
 };
 
 export type StoreType = {
@@ -36,4 +35,8 @@ export type ActionType =
     | {
           type: 'set-search';
           payload: {};
+      }
+    | {
+          type: 'set-loading';
+          payload: boolean;
       };

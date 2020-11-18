@@ -1,18 +1,8 @@
 export const languages = {
-    JAVASCRIPT: {
-        id : 'JAVASCRIPT',
-        display: 'Javascript',
-    },
-    PHP:  {
-        id: 'PHP',
-        display: 'PHP',
-    },
-    RUBY: {
-        id: 'RUBY',
-        display: 'Ruby',
-    },
-    ALL: {
-        id: 'ALL',
-        display: 'All'
-    }
-};
+    JAVASCRIPT: 'Javascript',
+    PHP: 'PHP',
+    RUBY: 'Ruby',
+    ALL: 'All',
+} as const;
+
+export type LanguagesType = typeof languages[keyof typeof languages];

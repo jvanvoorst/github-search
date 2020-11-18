@@ -11,3 +11,7 @@
     border-left-color: black;
     padding-left: 10px
 }
+
+.loading-placeholder {
+    height: 4px;
+}

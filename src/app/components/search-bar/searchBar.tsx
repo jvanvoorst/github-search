@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import { InputLabel, MenuItem, Select, TextField } from '@material-ui/core';
 
-import { languages } from '../../data/languages';
-import { sorts } from '../../data/sorts';
+import { languages, LanguagesType } from '../../data/languages';
+import { sorts, SortsType } from '../../data/sorts';
 
 import './searchBar.css';
 
-export default function Header({
+export default function SearchBar({
     handleSearch,
 }: {
-    handleSearch: (searchTerm: string, sort: string, language: string) => void;
+    handleSearch: (searchTerm: string, sort: SortsType, language: LanguagesType) => void;
 }) {
     const [searchTerm, setSearchTerm] = useState('');
-    const [sort, setSort] = useState(sorts.BEST_MATCH.id);
-    const [language, setLanguage] = useState(languages.ALL.id);
+    const [sort, setSort] = useState(sorts.BEST_MATCH);
+    const [language, setLanguage] = useState(languages.ALL);
     const [error, setError] = useState('');
 
     const errorText = 'must be at least 3 characters';
@@ -39,8 +39,6 @@ export default function Header({
         handleSearch(searchTerm, sort, language);
     };
 
-    console.log('object', Object.values(languages));
-
     return (
         <div className={'search-bar-container'}>
             <div className={'input-container'}>
@@ -51,7 +49,6 @@ export default function Header({
                     onChange={(e) => setSearchTerm(e.target.value)}
                     onKeyPress={(e) => onKeyPress(e.key)}
                     autoFocus
-                    // placeholder={'Search..'}
                     error={!!error}
                     helperText={error}
                     classes={{ root: 'text-field' }}
@@ -66,7 +63,7 @@ export default function Header({
                     onChange={(e) => onChangeLanguage(e.target.value)}
                 >
                     {Object.values(languages).map((l) => (
-                        <MenuItem value={l.id}>{l.display}</MenuItem>
+                        <MenuItem key={l} value={l}>{l}</MenuItem>
                     ))}
                 </Select>
             </div>
@@ -79,7 +76,7 @@ export default function Header({
                     onChange={(e) => onChangeSort(e.target.value)}
                 >
                     {Object.values(sorts).map((s) => (
-                        <MenuItem value={s.id}>{s.display}</MenuItem>
+                        <MenuItem key={s} value={s}>{s}</MenuItem>
                     ))}
                 </Select>
             </div>
