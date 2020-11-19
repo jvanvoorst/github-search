@@ -9,7 +9,7 @@ const initialState: StateType = {
     repos: [],
     search: {
         sort: sorts.BEST_MATCH,
-        language: languages.ALL,
+        language: languages.ANY,
         term: ''
     },
     loading: false
@@ -24,7 +24,6 @@ const mainReducer = ({ repos, search, loading }: StateType, action: ActionType):
 });
 
 const AppProvider: React.FC = ({ children }) => {
-    console.log('provider')
     const [state, dispatch] = useReducer(mainReducer, initialState);
 
     return <AppContext.Provider value={{ state, dispatch }}>{children}</AppContext.Provider>;

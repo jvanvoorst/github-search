@@ -14,10 +14,10 @@ function createQueryString(searchTerm: string, sort: SortsType, language: Langua
     let query = `?q=${searchTerm}`;
 
     // if there is a language add that
-    if (language !== 'All') query += `+language:${language}`;
+    if (language !== 'ANY') query += `+language:${language}`;
 
-    // there will always be a sort so add
-    query += `&sort=${sort}`;
+    // if sort by stars add that
+    if (sort === 'Stars') query += `&sort=${sort.toLowerCase()}`;
 
     return query
 

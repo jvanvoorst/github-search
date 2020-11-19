@@ -1,5 +1,6 @@
 .details-container {
-    padding: 2rem;
+    padding-right: 2rem;
+    padding-left: 2rem;
 }
 
 .back-link {
@@ -10,6 +11,7 @@
 .details-outer {
     display: flex;
     justify-content: center;
+    padding-top: 20px;
 }
 
 .details-inner {
@@ -27,4 +29,8 @@
 
 .details-body {
     padding-top: 20px
+}
+
+.owner-repo-text {
+    font-size: 18px;
 }
