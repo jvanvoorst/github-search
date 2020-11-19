@@ -9,7 +9,7 @@ export const languages = {
     'C++': 'C++',
     RUBY: 'Ruby',
     JUPYTER_NOTEBOOK: 'Jupyter Notebook',
-    ANY: 'ANY',
+    ANY: 'Any',
 } as const;
 
 export type LanguagesType = typeof languages[keyof typeof languages];
